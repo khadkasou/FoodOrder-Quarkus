@@ -1,42 +1,58 @@
 package org.souraj.service;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import org.souraj.dto.CategoryDto;
 import org.souraj.model.Category;
 import org.souraj.repository.CategoryRepository;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
-public class CategoryServiceImpl implements CategoryService{
+@RequestScoped
+public class CategoryServiceImpl implements CategoryService, Serializable {
 
     @Inject
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
 
-    @Override
-    public void save(Category category) {
-       categoryRepository.persist(category);
-    }
 
     @Override
-    public Category findById(Long id) {
-        return categoryRepository.findById(id);
+    @Transactional
+    public Category save(Category category) {
+        categoryRepository.persist(category);
+        return category;
     }
 
     @Override
     public List<Category> findAll() {
-   return (List<Category>) categoryRepository.findAll();
-       
+        return categoryRepository.findAll().list();
     }
 
     @Override
-    public void delete(Long id) {
-       categoryRepository.delete(String.valueOf(id));
+    @Transactional
+    public boolean delete(Long id) {
+        categoryRepository.deleteById(id);
+        return false;
     }
 
     @Override
-    public void update(Category category) {
-        
-         categoryRepository.persist(category);
+    @Transactional
+    public Category update(Long id, CategoryDto categoryDto) {
+        Optional<Category> optionalCategory = Optional.ofNullable(categoryRepository.findById(id));
+        if (optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+            category.setName(categoryDto.getName());
+            categoryRepository.persist(category);
+            return category;
+        }
+        return null;
+    }
+
+    @Override
+    public Category findById(Long id) {
+        return categoryRepository.findByIdOptional(id).orElse(null);
     }
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@MappedSuperclass
 public abstract class AbstractEntity implements IAbstractClass, Serializable {
 
     @Id

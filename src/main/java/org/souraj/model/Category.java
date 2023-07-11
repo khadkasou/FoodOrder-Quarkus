@@ -1,19 +1,18 @@
 package org.souraj.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
 
+
 @Entity
 @Table(name ="category")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Category extends AbstractEntity{
+public class Category extends AbstractEntity {
 
 private String name;
 
     public Category() {
+
     }
 
     public String getName() {

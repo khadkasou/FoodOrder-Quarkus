@@ -1,5 +1,10 @@
 package org.souraj.repository;
 
 
-public class CategoryRepositoryImpl implements CategoryRepository {
+import jakarta.enterprise.context.RequestScoped;
+
+import java.io.Serializable;
+
+@RequestScoped
+public class CategoryRepositoryImpl implements CategoryRepository, Serializable {
 }
