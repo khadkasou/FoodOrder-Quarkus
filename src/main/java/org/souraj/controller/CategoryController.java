@@ -1,5 +1,7 @@
 package org.souraj.controller;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -20,6 +22,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @POST
+    @RolesAllowed("{admin},{user}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveCategory(Category category) {
         categoryService.save(category);
@@ -39,11 +42,13 @@ public class CategoryController {
     }
 
     @GET
+    @PermitAll
     public List<Category> listAllCategory() {
         return categoryService.findAll();
     }
 
     @DELETE
+    @RolesAllowed("{admin}")
     @Path("/{id}")
     public Boolean deleteCategory(@PathParam("id") Long id) {
         boolean deleted = categoryService.delete(id);
