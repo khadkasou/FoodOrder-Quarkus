@@ -1,13 +1,8 @@
-package org.souraj.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+package org.souraj.dto;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "user")
-public class User extends AbstractEntity{
+public class UserDto {
 
     private String firstName;
     private String lastName;
@@ -15,9 +10,6 @@ public class User extends AbstractEntity{
     private String email;
     private String password;
     private Set<String> roles;
-
-    public User() {
-    }
 
     public String getFirstName() {
         return firstName;
@@ -43,7 +35,7 @@ public class User extends AbstractEntity{
         this.username = username;
     }
 
-    public String getEmail() {
+    public  String getEmail() {
         return email;
     }
 
