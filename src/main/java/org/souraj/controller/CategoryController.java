@@ -22,7 +22,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @POST
-    @RolesAllowed("{admin},{user}")
+    @RolesAllowed({"Admin","User"})
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveCategory(Category category) {
         categoryService.save(category);
@@ -48,7 +48,7 @@ public class CategoryController {
     }
 
     @DELETE
-    @RolesAllowed("{admin}")
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Boolean deleteCategory(@PathParam("id") Long id) {
         boolean deleted = categoryService.delete(id);
@@ -57,6 +57,7 @@ public class CategoryController {
     }
 
     @PUT
+    @RolesAllowed({"Admin","User"})
     @Path("/{id}")
     public Response updateCategory(@PathParam("id") Long id, CategoryDto category) {
         Category updatedCategory = categoryService.update(id, category);

@@ -11,10 +11,10 @@ public class JwtTokenGenerate {
     public String generateToken(){
 
         return Jwt.issuer("https://example.com/issuer")
-                .upn("khadkasouraj17@gmail.com")
-                .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+                .upn("syntech11@gmail.com")
+                .groups(new HashSet<>(Arrays.asList("Admin", "User")))
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plusSeconds(8844))
+                .expiresAt(Instant.now().plusSeconds(5000))
                 .subject("token to access api")
                 .sign();
     }
